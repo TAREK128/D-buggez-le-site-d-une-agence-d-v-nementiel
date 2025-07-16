@@ -8,21 +8,28 @@ const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 500)
 
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false);
-  const sendContact = useCallback(
-    async (evt) => {
-      evt.preventDefault();
-      setSending(true);
-      // We try to call mockContactApi
-      try {
-        await mockContactApi();
-        setSending(false);
-      } catch (err) {
-        setSending(false);
-        onError(err);
-      }
-    },
-    [onSuccess, onError]
-  );
+
+// تصحيح زر الاتصال
+// sendContact دالة ارسال فورم
+// useCallback هوك في راكت يُستخدم لحفظ دالة حتى لا تُعاد كتابتها في كل مرة يُعاد فيها التصيير
+
+ const sendContact = useCallback(
+  async (evt) => {
+    evt.preventDefault();        // يمنع تحديث الصفحة
+    setSending(true);            // يعرض "En cours"
+
+    try {
+      await mockContactApi();    // تجربة الاتصال بالخادم
+      setSending(false);         // يعيد الزر لحالته الأصلية
+      onSuccess();               // *الحل هنا *ينادي الدالة التي تم تمريرها كمُعالج للنجاح
+    } catch (err) {
+      setSending(false);         // يعيد الزر لحالته الأصلية
+      onError(err);              // ينادي الدالة التي تم تمريرها كمُعالج للخطأ
+    }
+  },
+  [onSuccess, onError]
+);
+
   return (
     <form onSubmit={sendContact}>
       <div className="row">

@@ -12,11 +12,15 @@ const PER_PAGE = 9;
 const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
+   console.log("🔍 type sélectionné:", type); // كونسول لفحص ..ايفن لست..
+
   const [currentPage, setCurrentPage] = useState(1);
   const filteredEvents = (
-    (!type
-      ? data?.events
-      : data?.events) || []
+    (!type // إذا لم يتم تحديد نوع (فئة)، اعرض جميع الأحداث
+      ? data?.events // جميع الأحداث
+      : data?.events?.filter(event => event.type === type)) // تصفية الفلاتر
+       || [] // في حال كانت نتية الفلترة غير موجودة ارجع مصفوفة فارغة
+
   ).filter((event, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&

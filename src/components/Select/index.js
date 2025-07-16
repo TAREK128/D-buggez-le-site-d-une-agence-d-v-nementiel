@@ -16,9 +16,9 @@ const Select = ({
   const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
   const changeValue = (newValue) => {
-    onChange();
+    onChange(newValue); // الخطاء هنا لا يمرر قيمة 
     setValue(newValue);
-    setCollapsed(newValue);
+    setCollapsed(true); // القائمة تبقى مفتوحه بعد الاختيار
   };
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
