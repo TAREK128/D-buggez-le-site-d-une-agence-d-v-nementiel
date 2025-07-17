@@ -7,18 +7,24 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
-  const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
-  );
-  const nextCard = () => {
-    setTimeout(
-      () => setIndex(index < byDateDesc.length ? index + 1 : 0),
-      5000
-    );
-  };
+
+  const byDateDesc = data?.focus
+  ? [...data.focus].sort((evtA, evtB) => // الحل قمت بنسخ المصفوفة  [...data.focus]
+      new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
+    )
+  : [];
+
+ // تصحيح طريقة التحديث التلقائي للشريحة (Slider) كل 5 ثواني
+  // الكود الأصلي كان هناك استدعاء .ست تايم اوت. من دون تنظيف يسب تراكم 
+// useEffect  هوك في رياكت يستخدم لتنفيذ كود بعد ان يتم عرض مكون او تغير القيمة
   useEffect(() => {
-    nextCard();
-  });
+  const timer = setTimeout(() => {
+    setIndex(index < byDateDesc.length - 1 ? index + 1 : 0);
+  }, 5000);
+
+  return () => clearTimeout(timer); // إلغاء المؤقت السابق
+}, [index, byDateDesc.length]); // إعادة تشغيل التايمر فقط عندما يتغير index او byDateDesc
+
  return (
   <div className="SlideCardList">
     {byDateDesc?.map((event, idx) => ( //idx يساوي اندكس رقم العنصر

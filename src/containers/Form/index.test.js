@@ -13,7 +13,7 @@ describe("When Events is created", () => {
   describe("and a click is triggered on the submit button", () => {
     it("the success action is called", async () => {
       const onSuccess = jest.fn();
-      render(<Form onSuccess={onSuccess} />);
+      render(<Form onSuccess={onSuccess} />); // هنا استدعاء 
       fireEvent(
         await screen.findByTestId("button-test-id"),
         new MouseEvent("click", {
