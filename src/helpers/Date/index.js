@@ -13,4 +13,7 @@ export const MONTHS = {
   12: "décembre",
 };
 
-export const getMonth = (date) => MONTHS[date.getMonth()];
+export const getMonth = (date) => MONTHS[date.getMonth() + 1];
+// مشكلة التواريخ تظهر بشكل غير صحيح أو فارغ
+//date.getMonth() يرجع رقم الشهر من 0 إلى 11.
+//بإضافة +1، يصبح من 1 إلى 12، وهو ما يتوافق مع مفاتيح كائن ...MONTHS
