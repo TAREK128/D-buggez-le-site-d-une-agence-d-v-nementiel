@@ -10,10 +10,13 @@ import Logo from "../../components/Logo";
 import Icon from "../../components/Icon";
 import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
-import { useData } from "../../contexts/DataContext";
+import { useData } from "../../contexts/DataContext"; //استدعاء useData
 
 const Page = () => {
   const {last} = useData()
+   console.log("last:", last); // اضفت هذا الكونسول لفحص لاست  ان كان موجود او لا
+
+
   return <>
     <header>
       <Menu />
@@ -115,14 +118,18 @@ const Page = () => {
     </main>
     <footer className="row">
       <div className="col presta">
+        
         <h3>Notre derniére prestation</h3>
+        
         <EventCard
-          imageSrc={last?.cover} //
+          imageSrc={last?.cover} // مشكلة عدم استدعاء لاست كان يظهر في كونسول النتيجة انديفند
           title={last?.title}
           date={new Date(last?.date)}
           small
           label="boom"
+          
         />
+        
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>

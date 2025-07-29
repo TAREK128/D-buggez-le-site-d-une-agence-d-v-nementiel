@@ -34,7 +34,7 @@ const Slider = () => {
             index === idx ? "display" : "hide"
           }`}
         >
-          
+        
           <img src={event.cover} alt={event.title} />
           <div className="SlideCard__descriptionContainer">
             <div className="SlideCard__description">
@@ -52,7 +52,7 @@ const Slider = () => {
                 key={`radio-${radioIdx}`} // radioIdx رقم الزر داخل كل مجموعة 
                 type="radio"
                 name={`radio-button-${idx}`}
-                checked={idx === radioIdx}
+                checked={index  === radioIdx} // اضافة اندكس هنا لانه رقم الشريحة بينما ايديكس رقم العنصر داخل ماب
                 readOnly
               />
             ))}

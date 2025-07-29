@@ -46,7 +46,7 @@ const EventList = () => {
           <h3 className="SelectTitle">Catégories</h3>
           <Select
             selection={Array.from(typeList)}
-            onChange={(value) => (value ? changeType(value) : changeType(null))}
+            onChange={(value) => (value ? changeType(value) : changeType(null))} //هنا تمرير القيمة ل onChange
           />
           <div id="events" className="ListContainer">
             {filteredEvents.map((event) => (

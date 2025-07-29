@@ -16,9 +16,10 @@ export const api = {
   },
 };
 
-export const DataProvider = ({ children }) => {
+export const DataProvider = ({ children }) => { // داخل DataProvider
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+
   const getData = useCallback(async () => {
     try {
       setData(await api.loadData());
@@ -26,17 +27,23 @@ export const DataProvider = ({ children }) => {
       setError(err);
     }
   }, []);
+
   useEffect(() => {
     if (data) return;
     getData();
   });
   
+const last = data?.events?.length ? data.events[data.events.length - 1] : null; // حساب آخر حدث
+
+
+
   return (
     <DataContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         data,
         error,
+        last , // تمرير لاست هنا
       }}
     >
       {children}
